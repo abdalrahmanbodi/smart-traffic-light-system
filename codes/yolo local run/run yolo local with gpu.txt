@@ -1,0 +1,106 @@
+--------------------------------------
+#write these commands in annaconda cmd 
+--------------------------------------
+REQUIRED LIBRARIES:
+1-pandas
+2-tqdm
+3-yaml
+4-matplotlib
+5-seaborn
+5-scipy
+6-tensorboard
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+1- conda create --name venv # creating environment
+
+2- conda activate venv # activate the environment
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# After activating the environment To install a tool to annotate photos:
+
+ to install => pip install labelImg
+ to run it  => labelImg
+
+# OR USE roboflow.com to annotate and augment
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+3- conda install -c anaconda git  # installing git function
+
+4-pip install ultralytics # For yolov8
+
+5-Downloading algorithm files
+  	yolov7 : git clone "https://github.com/WongKinYiu/yolov7.git" 
+	yolov8 : git clone "https://github.com/ultralytics/ultralytics.git"
+
+6- pip install -r requirements.txt  #install required libraries from this file.txt
+
+7-download pre trained weights directly from a link and paste it in yolo file
+	*yolov7-tiny ==> https://github.com/WongKinYiu/yolov7/releases/download/v0.1/yolov7-tiny.pt
+	*yolov7 ==> https://github.com/WongKinYiu/yolov7/releases/download/v0.1/yolov7.pt
+	*yolov8-nano ==> https://github.com/ultralytics/assets/releases/download/v0.0.0/yolov8n.pt
+
+8- install CUDA from : https://developer.nvidia.com/cuda-downloads
+
+9-install pytorch from :https://pytorch.org/get-started/locally/
+	#ex: conda install pytorch torchvision torchaudio pytorch-cuda=11.6 -c pytorch -c nvidia
+
+10- run yolo:
+
+Change the directory to the yolo file first :   cd yolov7      #for yolov7
+								cd ultralytics #for yolov8
+
+#V7
+for training :python train.py --weights yolov7-tiny.pt --data "C:\Users\Tarek_Salah\yolov7\data\coco.yaml" --workers 4 --epochs 20 --batch-size 16 --img 600 --cfg C:\Users\Tarek_Salah\yolov7\cfg\training\yolov7-tiny.yaml --name yolov7-tiny --hyp C:\Users\Tarek_Salah\yolov7\data\hyp.scratch.p5.yaml --device 0
+
+for testing : 1- python detect.py --weights yolov7-tiny.pt --conf 0.25 --img-size 640 --source C:\Users\abdal\OneDrive\Desktop\000000561308_jpg.rf.3514807c8c3a947884c37881c423ba2e.jpg --device 0
+
+              2- python test.py --weights runs/train/yolov7_tiny_pothole_fixed_res/weights/best.pt --task test --data data/pothole.yaml
+  
+#V8
+for training :yolo task=detect mode=train model=yolov8n.pt imgsz=640 data=C:\Users\abdal\ultralytics\ultralytics\datasets\coco.yaml epochs=20 batch=16 optimizer=AdamW
+
+#(NOTE)# you can put any argument you want in the line or modify in the training script or leave it to default 
+	   Know the arguments from "args.yaml" file
+
+
+for testing  :
+with videos or pjotos => yolo detect predict model=C:\Users\abdal\ultralytics\runs\detect\train\weights\best.pt source="C:\Bodi\ACU\Grad_project\test_videos\fire-truck .mp4" save=True
+with device camera    => yolo detect predict model=C:\Users\abdal\ultralytics\runs\detect\train\weights\best.pt source=0 save=True
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+FILES TO EDIT BEFORE RUN(yolo 7):
+
+1- data/coco.yaml
+2- cfg/training/yolov7-tiny.yaml
+
+FILES TO EDIT BEFORE RUN(yolo 8):
+
+1-ultralytics\ultralytics\datasets\coco.yaml
+2-ultralytics\ultralytics\models\v8\yolov8n.yaml
+
+FILE TO ADD YOUR PROJECT CODE CONDITIONS IN:
+
+==> C:\Users\abdal\ultralytics\ultralytics\yolo\v8\detect\predict.py
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+DRAFT:
+======
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+yolo detect predict model=C:\Users\abdal\ultralytics\runs\detect\train5\weights\best.pt source="C:\Bodi\ACU\Grad_project\test_videos\all cars.mp4" save=True
